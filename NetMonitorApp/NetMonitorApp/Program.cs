@@ -407,7 +407,6 @@ namespace NetMonitorApp
                 while (retries-- > 0 && !pingSuccess)
                 {
                     //AppendToLog("VPN Ping reply status=" + pingReply.Status.ToString());
-                    //Test of Git
                     switch (pingReply.Status)
                     {
                         case System.Net.NetworkInformation.IPStatus.Success:
