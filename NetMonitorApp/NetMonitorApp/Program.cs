@@ -32,6 +32,7 @@ namespace NetMonitorApp
 
         public VPNAndModemMonitor()
         {
+            //VPN End Point IP is currently set to General NOC
             vpnEndPoint = System.Net.IPAddress.Parse("192.168.20.1");
             vpnEndPointPinger = new System.Net.NetworkInformation.Ping();
             failCount = 0;
@@ -383,12 +384,12 @@ namespace NetMonitorApp
                 if (pingReply.Status != System.Net.NetworkInformation.IPStatus.Success)
                 {
                     modemFailCount++;
-                    if (modemRestartFailCount > 24)
+                    if (modemRestartFailCount > 100)
                     {
                         AppendToLog("Attempting reboot to recover data network");
                         System.Diagnostics.Process.Start("ShutDown", "/r");
                     }
-                    if (modemFailCount >= 2)
+                    if (modemFailCount >= 10)
                     {
                         AppendToLog("Modem ping failed too many times, resetting");
                         modemFailCount = 0;
@@ -429,7 +430,7 @@ namespace NetMonitorApp
                 if (pingReply.Status != System.Net.NetworkInformation.IPStatus.Success)
                 {
                     failCount++;
-                    if (failCount >= 5)
+                    if (failCount >= 20)
                     {
                         AppendToLog("VPN ping failed too many times, resetting");
                         failCount = 0;
