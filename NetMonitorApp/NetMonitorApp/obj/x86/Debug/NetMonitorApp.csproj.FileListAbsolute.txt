@@ -1,0 +1,10 @@
+C:\Users\cash\AppData\Local\Temporary Projects\NetMonitorApp\bin\Debug\NetMonitorApp.exe
+C:\Users\cash\AppData\Local\Temporary Projects\NetMonitorApp\bin\Debug\NetMonitorApp.pdb
+C:\Users\cash\AppData\Local\Temporary Projects\NetMonitorApp\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\cash\AppData\Local\Temporary Projects\NetMonitorApp\obj\x86\Debug\NetMonitorApp.exe
+C:\Users\cash\AppData\Local\Temporary Projects\NetMonitorApp\obj\x86\Debug\NetMonitorApp.pdb
+C:\Users\cash\documents\visual studio 2010\Projects\NetMonitorApp\NetMonitorApp\obj\x86\Debug\NetMonitorApp.exe
+C:\Users\cash\documents\visual studio 2010\Projects\NetMonitorApp\NetMonitorApp\obj\x86\Debug\NetMonitorApp.pdb
+C:\Users\cash\documents\visual studio 2010\Projects\NetMonitorApp\NetMonitorApp\bin\Debug\NetMonitorApp.exe
+C:\Users\cash\documents\visual studio 2010\Projects\NetMonitorApp\NetMonitorApp\bin\Debug\NetMonitorApp.pdb
+C:\Users\cash\documents\visual studio 2010\Projects\NetMonitorApp\NetMonitorApp\obj\x86\Debug\ResolveAssemblyReference.cache
