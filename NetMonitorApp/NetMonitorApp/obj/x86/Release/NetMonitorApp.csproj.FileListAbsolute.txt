@@ -12,3 +12,6 @@ C:\Users\cash\Documents\Visual Studio 2012\Projects\NetMonitorApp\NetMonitorApp\
 C:\Users\cash\Documents\Visual Studio 2012\Projects\NetMonitorApp\NetMonitorApp\obj\x86\Release\NetMonitorApp.csprojResolveAssemblyReference.cache
 C:\Users\cash\Documents\GitHub\C-Sharp-NetMonitorApp\NetMonitorApp\NetMonitorApp\obj\x86\Release\NetMonitorApp.exe
 C:\Users\cash\Documents\GitHub\C-Sharp-NetMonitorApp\NetMonitorApp\NetMonitorApp\obj\x86\Release\NetMonitorApp.pdb
+C:\Users\cash\Documents\GitHub\C-Sharp-NetMonitorApp\NetMonitorApp\NetMonitorApp\bin\Release\NetMonitorApp.exe
+C:\Users\cash\Documents\GitHub\C-Sharp-NetMonitorApp\NetMonitorApp\NetMonitorApp\bin\Release\NetMonitorApp.pdb
+C:\Users\cash\Documents\GitHub\C-Sharp-NetMonitorApp\NetMonitorApp\NetMonitorApp\obj\x86\Release\NetMonitorApp.csprojResolveAssemblyReference.cache
