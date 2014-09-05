@@ -386,8 +386,9 @@ namespace NetMonitorApp
                     modemFailCount++;
                     if (modemRestartFailCount > 100)
                     {
-                        AppendToLog("Attempting reboot to recover data network");
-                        System.Diagnostics.Process.Start("ShutDown", "/r");
+                        AppendToLog("Network connectivity is unrecoverable.");
+                        //System.Diagnostics.Process.Start("ShutDown", "/r");
+                        
                     }
                     if (modemFailCount >= 10)
                     {
