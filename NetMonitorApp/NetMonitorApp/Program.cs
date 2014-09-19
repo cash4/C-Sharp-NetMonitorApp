@@ -1,34 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 
 namespace NetMonitorApp
 {
-    class VPNAndModemMonitor
+    internal class Program
     {
+        private static void Main(string[] args)
+        {
+            VPNAndModemMonitor vpnMonitor = new VPNAndModemMonitor();
+
+            while (true) ;
+        }
+    }
+
+    internal class VPNAndModemMonitor
+    {
+        private int failCount;
+        private System.ServiceProcess.ServiceController ikedController;
+        private System.ServiceProcess.ServiceController ipsecdController;
+        private System.Net.NetworkInformation.PingReply lastPingReply;
+        private bool modemActive;
+        private int modemFailCount;
+        private int modemRestartFailCount;
+        private System.Timers.Timer myTimer;
+        private System.Diagnostics.Process player;
+        private bool playerStarted;
         private System.Diagnostics.Process process1;
         private System.Diagnostics.Process process3;
         private System.Diagnostics.Process process4;
         private System.Diagnostics.Process process5;
-        private System.Diagnostics.Process player;
-        private bool playerStarted;
-        private System.ServiceProcess.ServiceController ipsecdController;
-        private System.ServiceProcess.ServiceController ikedController;
-
-        System.Net.IPAddress vpnEndPoint;
-        System.Net.NetworkInformation.Ping vpnEndPointPinger;
-        System.Net.NetworkInformation.PingReply lastPingReply;
-        int failCount;
-        bool modemActive;
-        int modemRestartFailCount;
-        int modemFailCount;
-        System.Timers.Timer myTimer;
-        int tickCounter;
-
-        System.IO.FileStream serviceLog;
+        private System.IO.FileStream serviceLog;
+        private int tickCounter;
+        private System.Net.IPAddress vpnEndPoint;
+        private System.Net.NetworkInformation.Ping vpnEndPointPinger;
 
         public VPNAndModemMonitor()
         {
@@ -51,9 +55,9 @@ namespace NetMonitorApp
 
             this.myTimer = new System.Timers.Timer();
             ((System.ComponentModel.ISupportInitialize)(this.myTimer)).BeginInit();
-            // 
+            //
             // process1
-            // 
+            //
             this.process1.EnableRaisingEvents = true;
             this.process1.StartInfo.Arguments = "-r 209.118.225.23 -a";
             this.process1.StartInfo.Domain = "";
@@ -68,8 +72,6 @@ namespace NetMonitorApp
             this.process1.StartInfo.UseShellExecute = false;
             this.process1.StartInfo.WorkingDirectory = "c:\\MriTools\\NetMonitor";
 
-            
-
             //this.player.EnableRaisingEvents = true;
             //this.player.StartInfo.Arguments = "/fullscreen c:\\MriContent\\Verifone_5.mp4";
             //this.player.StartInfo.Domain = "";
@@ -82,9 +84,9 @@ namespace NetMonitorApp
             //this.player.StartInfo.UseShellExecute = false;
             //this.player.StartInfo.WorkingDirectory = "c:\\Program Files\\Windows Media Player";
 
-            // 
+            //
             // process3
-            // 
+            //
             this.process3.StartInfo.Domain = "";
             this.process3.StartInfo.FileName = "c:\\MriTools\\NetMonitor\\HSPARestart.bat";
             this.process3.StartInfo.LoadUserProfile = false;
@@ -93,9 +95,9 @@ namespace NetMonitorApp
             this.process3.StartInfo.StandardOutputEncoding = null;
             this.process3.StartInfo.UserName = "";
             this.process3.StartInfo.UseShellExecute = false;
-            //// 
+            ////
             //// process4
-            //// 
+            ////
             //this.process4.StartInfo.Domain = "";
             //this.process4.StartInfo.FileName = "c:\\Program Files\\Sprint\\Sprint SmartView\\SprintSV.exe";
             //this.process4.StartInfo.LoadUserProfile = false;
@@ -119,7 +121,6 @@ namespace NetMonitorApp
                     CreateNoWindow = true
                 }
             };
-            
 
             this.ipsecdController = new System.ServiceProcess.ServiceController();
             this.ipsecdController.ServiceName = "ipsecd";
@@ -127,9 +128,9 @@ namespace NetMonitorApp
             this.ikedController = new System.ServiceProcess.ServiceController();
             this.ikedController.ServiceName = "iked";
 
-            // 
+            //
             // myTimer
-            // 
+            //
             this.myTimer.Enabled = true;
             this.myTimer.Interval = 35000;
             this.myTimer.Elapsed += new System.Timers.ElapsedEventHandler(this.timer1_Tick);
@@ -137,8 +138,6 @@ namespace NetMonitorApp
             ((System.ComponentModel.ISupportInitialize)(this.myTimer)).EndInit();
 
             StartModem();
-            
-            
         }
 
         private void AppendToLog(String toAdd)
@@ -154,6 +153,24 @@ namespace NetMonitorApp
             logStream.Flush();
             logStream.Close();
             serviceLog.Close();
+        }
+
+        private void process1_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            AppendToLog("Received error data starting vpn, message=" + e.Data);
+        }
+
+        private void RestartModem()
+        {
+            /*try
+            {
+                process3.Start();
+            }
+            catch (Exception e)
+            {
+                AppendToLog("Exception Killing modem=" + e.Message);
+            }*/
+            StartModem();
         }
 
         private void StartModem()
@@ -187,21 +204,6 @@ namespace NetMonitorApp
             //}
             Console.WriteLine("Restarting modem...");
             process3.Start();
-            
-
-        }
-
-        private void RestartModem()
-        {
-            /*try
-            {
-                process3.Start();
-            }
-            catch (Exception e)
-            {
-                AppendToLog("Exception Killing modem=" + e.Message);
-            }*/
-            StartModem();
         }
 
         private void StartVpn()
@@ -307,11 +309,6 @@ namespace NetMonitorApp
             }
         }
 
-        void process1_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            AppendToLog("Received error data starting vpn, message=" + e.Data);
-        }
-
         private void timer1_Tick(object sender, System.Timers.ElapsedEventArgs e)
         {
             int retries = 3;
@@ -325,9 +322,6 @@ namespace NetMonitorApp
                 {
                     StartModem();
                 }
-
-
-
             }
 
             //add another comment
@@ -368,8 +362,9 @@ namespace NetMonitorApp
                             modemActive = true;
                             StartVpn();
                             modemRestartFailCount = 0;
-                            
+
                             break;
+
                         case System.Net.NetworkInformation.IPStatus.TimedOut:
                         case System.Net.NetworkInformation.IPStatus.IcmpError:
                         default:
@@ -377,7 +372,6 @@ namespace NetMonitorApp
                             //May need to consider situations where a player reboot is required...though perhaps that can be handled
                             //by the PMS
                             break;
-
                     }
                     pingReply = publicDnsPinger.Send(googlePublicDns);
                 }
@@ -389,7 +383,6 @@ namespace NetMonitorApp
                     {
                         AppendToLog("Network connectivity is unrecoverable.");
                         //System.Diagnostics.Process.Start("ShutDown", "/r");
-                        
                     }
                     if (modemFailCount >= 10)
                     {
@@ -416,8 +409,9 @@ namespace NetMonitorApp
                             lastPingReply = pingReply;
                             failCount = 0;
                             pingSuccess = true;
-                            
-                            break;                           
+
+                            break;
+
                         case System.Net.NetworkInformation.IPStatus.TimedOut:
                         case System.Net.NetworkInformation.IPStatus.IcmpError:
                         default:
@@ -425,7 +419,6 @@ namespace NetMonitorApp
                             //May need to consider situations where a player reboot is required...though perhaps that can be handled
                             //by the PMS
                             break;
-
                     }
                     pingReply = vpnEndPointPinger.Send(vpnEndPoint);
                 }
@@ -442,16 +435,6 @@ namespace NetMonitorApp
                     }
                 }
             }
-        }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            VPNAndModemMonitor vpnMonitor = new VPNAndModemMonitor();
-
-            while (true) ;
         }
     }
 }
